@@ -1,0 +1,21 @@
+﻿<Window x:Class="WorkTimer.Views.Settings"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:md="https://github.com/fantasticfiasco/mvvm-dialogs"
+        xmlns:local="clr-namespace:WorkTimer.Views"
+        md:DialogServiceViews.IsRegistered="True"
+        mc:Ignorable="d"
+        Title="Work Timer" Height="320" Width="380">
+    <Grid>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+            <TextBox Text="{Binding HoursText}" SelectionChanged="HoursInput_SelectionChanged" GotMouseCapture="HoursInput_GotFocus" GotKeyboardFocus="HoursInput_GotFocus" GotFocus="HoursInput_GotFocus" x:Name="HoursInput" PreviewTextInput="HoursInput_PreviewTextInput" Width="70" TextWrapping="Wrap" HorizontalContentAlignment="Center" BorderThickness="0" Margin="0,80,0,140" FontSize="52" MaxLength="2"/>
+            <Label Content=":" FontSize="52" Margin="0,69,0,140" VerticalContentAlignment="Top" />
+            <TextBox Text="{Binding MinutesText}" x:Name="MinutesInput" GotFocus="MinutesInput_GotFocus" PreviewTextInput="MinutesInput_PreviewTextInput" Width="70" TextWrapping="Wrap" HorizontalContentAlignment="Center" BorderThickness="0" Margin="0,80,0,140" FontSize="52" MaxLength="2"/>
+        </StackPanel>
+
+        <Button Command="{Binding Start}" x:Name="StartButton" Width="80" Height="25" Content="Start" Margin="0,180,0,0" VerticalAlignment="Top"/>
+
+    </Grid>
+</Window>
