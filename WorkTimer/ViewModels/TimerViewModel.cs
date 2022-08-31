@@ -77,6 +77,8 @@ namespace WorkTimer.ViewModels
             if (_dialogService.ShowDialog(this, vm) == true)
             {
                 _timer.Set(vm.Hours, vm.Minutes);
+                if (vm.WasReset)
+                    _timer.Reset();
             }
         }
     }

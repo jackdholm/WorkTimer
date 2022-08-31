@@ -16,6 +16,7 @@
         </StackPanel>
 
         <Button Command="{Binding Start}" x:Name="StartButton" Width="80" Height="25" Content="Start" Margin="0,180,0,0" VerticalAlignment="Top"/>
+        <Button Command="{Binding Reset}" x:Name="reset_button" Content="Reset" Margin="289,10,9.6,0" Height="27" VerticalAlignment="Top" />
 
     </Grid>
 </Window>

@@ -34,6 +34,13 @@ namespace WorkTimer.Models
             _countdown = _originalCountdown;
             _handler(_totalTime, _countdown);
         }
+        public void Reset()
+        {
+            _originalCountdown = new TimeSpan(0, 30, 0);
+            _countdown = _originalCountdown;
+            _totalTime = new TimeSpan(0, 0, 0);
+            _handler(_totalTime, _countdown);
+        }
         public void Start()
         {
             _dispatcherTimer.Start();

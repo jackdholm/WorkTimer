@@ -28,12 +28,15 @@ namespace WorkTimer.ViewModels
                 MinutesText = String.Format("{0:D2}", _minutes);
             }
         }
+
+        public bool? DialogResult { get { return _changed; } }
         public string HoursText { get; set; }
         public string MinutesText { get; set; }
         public ICommand Start { get; set; }
-
-        public bool? DialogResult { get { return _changed; } }
-
+        public ICommand Reset { get; set; }
+        public bool WasReset { get; set; }
+        
+        
         private int _hours;
         private int _minutes;
         private IDialogService _dialogService;
@@ -44,6 +47,7 @@ namespace WorkTimer.ViewModels
             _dialogService = dialogService;
             _changed = false;
             Start = new Commands.GenericCommand(StartTimer);
+            Reset = new Commands.GenericCommand(ResetTimer);
             Hours = 0;
             Minutes = 0;
         }
@@ -52,6 +56,13 @@ namespace WorkTimer.ViewModels
         {
             Hours = Convert.ToInt32(HoursText);
             Minutes = Convert.ToInt32(MinutesText);
+            _changed = true;
+            _dialogService.Close(this);
+        }
+
+        private void ResetTimer()
+        {
+            WasReset = true;
             _changed = true;
             _dialogService.Close(this);
         }
