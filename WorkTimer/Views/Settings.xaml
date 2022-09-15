@@ -8,11 +8,12 @@
         md:DialogServiceViews.IsRegistered="True"
         mc:Ignorable="d"
         Title="Work Timer" Height="320" Width="380">
+
     <Grid>
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-            <TextBox Text="{Binding HoursText}" SelectionChanged="HoursInput_SelectionChanged" GotMouseCapture="HoursInput_GotFocus" GotKeyboardFocus="HoursInput_GotFocus" GotFocus="HoursInput_GotFocus" x:Name="HoursInput" PreviewTextInput="HoursInput_PreviewTextInput" Width="70" TextWrapping="Wrap" HorizontalContentAlignment="Center" BorderThickness="0" Margin="0,80,0,140" FontSize="52" MaxLength="2"/>
+            <TextBox Text="{Binding HoursText}" SelectionChanged="HoursInput_SelectionChanged" LostFocus="HoursInput_LostFocus" GotMouseCapture="HoursInput_GotFocus" GotKeyboardFocus="HoursInput_GotFocus" GotFocus="HoursInput_GotFocus" x:Name="HoursInput" PreviewTextInput="HoursInput_PreviewTextInput" Width="70" TextWrapping="Wrap" HorizontalContentAlignment="Center" BorderThickness="0" Margin="0,80,0,140" FontSize="52" MaxLength="2" Style="{DynamicResource TextBoxStyle1}"/>
             <Label Content=":" FontSize="52" Margin="0,69,0,140" VerticalContentAlignment="Top" />
-            <TextBox Text="{Binding MinutesText}" x:Name="MinutesInput" GotFocus="MinutesInput_GotFocus" PreviewTextInput="MinutesInput_PreviewTextInput" Width="70" TextWrapping="Wrap" HorizontalContentAlignment="Center" BorderThickness="0" Margin="0,80,0,140" FontSize="52" MaxLength="2"/>
+            <TextBox Text="{Binding MinutesText}" x:Name="MinutesInput" LostFocus="MinutesInput_LostFocus" GotFocus="MinutesInput_GotFocus" PreviewTextInput="MinutesInput_PreviewTextInput" Width="70" TextWrapping="Wrap" HorizontalContentAlignment="Center" BorderThickness="0" Margin="0,80,0,140" FontSize="52" MaxLength="2" Style="{DynamicResource NumberInput}"/>
         </StackPanel>
 
         <Button Command="{Binding Start}" x:Name="StartButton" Width="80" Height="25" Content="Start" Margin="0,180,0,0" VerticalAlignment="Top"/>
