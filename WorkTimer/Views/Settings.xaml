@@ -7,17 +7,26 @@
         xmlns:local="clr-namespace:WorkTimer.Views"
         md:DialogServiceViews.IsRegistered="True"
         mc:Ignorable="d"
-        Title="Work Timer" Height="320" Width="380">
+        Title="Work Timer" Height="320" Width="450">
 
     <Grid>
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-            <TextBox Text="{Binding HoursText}" SelectionChanged="HoursInput_SelectionChanged" LostFocus="HoursInput_LostFocus" GotMouseCapture="HoursInput_GotFocus" GotKeyboardFocus="HoursInput_GotFocus" GotFocus="HoursInput_GotFocus" x:Name="HoursInput" PreviewTextInput="HoursInput_PreviewTextInput" Width="70" TextWrapping="Wrap" HorizontalContentAlignment="Center" BorderThickness="0" Margin="0,80,0,140" FontSize="52" MaxLength="2" Style="{DynamicResource TextBoxStyle1}"/>
-            <Label Content=":" FontSize="52" Margin="0,69,0,140" VerticalContentAlignment="Top" />
-            <TextBox Text="{Binding MinutesText}" x:Name="MinutesInput" LostFocus="MinutesInput_LostFocus" GotFocus="MinutesInput_GotFocus" PreviewTextInput="MinutesInput_PreviewTextInput" Width="70" TextWrapping="Wrap" HorizontalContentAlignment="Center" BorderThickness="0" Margin="0,80,0,140" FontSize="52" MaxLength="2" Style="{DynamicResource NumberInput}"/>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,80,50,125">
+                <TextBox Text="{Binding HoursText}" SelectionChanged="HoursInput_SelectionChanged" LostFocus="HoursInput_LostFocus" GotMouseCapture="HoursInput_GotFocus" GotKeyboardFocus="HoursInput_GotFocus" GotFocus="HoursInput_GotFocus" x:Name="HoursInput" PreviewTextInput="HoursInput_PreviewTextInput" Width="70" TextWrapping="Wrap" HorizontalContentAlignment="Center" BorderThickness="0" Margin="0,0,0,8" FontSize="52" MaxLength="2" Height="78" VerticalAlignment="Bottom"/>
+                <Label Content=":" FontSize="52" VerticalContentAlignment="Center" Height="105" VerticalAlignment="Bottom" RenderTransformOrigin="0,0" Margin="0,-20,0,0.6" />
+                <TextBox Text="{Binding MinutesText}" x:Name="MinutesInput" LostFocus="MinutesInput_LostFocus" GotFocus="MinutesInput_GotFocus" PreviewTextInput="MinutesInput_PreviewTextInput" Width="70" TextWrapping="Wrap" HorizontalContentAlignment="Center" BorderThickness="0" Margin="0,0,0,8" FontSize="52" MaxLength="2" Height="78" VerticalAlignment="Bottom"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,80,0,125" >
+                <TextBox Text="{Binding BreakHoursText}" SelectionChanged="BreakHoursInput_SelectionChanged"  LostFocus="BreakHoursInput_LostFocus" GotFocus="BreakHoursInput_GotFocus" x:Name="BreakHoursInput" PreviewTextInput="BreakHoursInput_PreviewTextInput" Width="70" TextWrapping="Wrap" HorizontalContentAlignment="Center" BorderThickness="0" Margin="0,0,0,8" FontSize="52" MaxLength="2" Height="78" VerticalAlignment="Bottom"/>
+                <Label Content=":" FontSize="52" VerticalContentAlignment="Center" Height="105" VerticalAlignment="Bottom" RenderTransformOrigin="0,0" Margin="0,-20,0,0.6" />
+                <TextBox Text="{Binding BreakMinutesText}" x:Name="BreakMinutesInput" LostFocus="BreakMinutesInput_LostFocus" GotFocus="BreakMinutesInput_GotFocus" PreviewTextInput="BreakMinutesInput_PreviewTextInput" Width="70" TextWrapping="Wrap" HorizontalContentAlignment="Center" BorderThickness="0" Margin="0,0,0,8" FontSize="52" MaxLength="2" Height="78" VerticalAlignment="Bottom"/>
+            </StackPanel>
         </StackPanel>
 
         <Button Command="{Binding Start}" x:Name="StartButton" Width="80" Height="25" Content="Start" Margin="0,180,0,0" VerticalAlignment="Top"/>
-        <Button Command="{Binding Reset}" x:Name="reset_button" Content="Reset" Margin="289,10,9.6,0" Height="27" VerticalAlignment="Top" />
+        <Button Command="{Binding Reset}" x:Name="reset_button" Width="120" Content="Reset" Margin="10,10,313.2,0" Height="27" VerticalAlignment="Top" />
+        <Label x:Name="label" Content="Main" HorizontalAlignment="Left" Margin="95,42,0,0" VerticalAlignment="Top" FontSize="14"/>
+        <Label x:Name="label_Copy" Content="Break" HorizontalAlignment="Left" Margin="307,42,0,0" VerticalAlignment="Top" FontSize="14"/>
 
     </Grid>
 </Window>

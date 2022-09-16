@@ -12,9 +12,13 @@ namespace WorkTimer.ViewModels
     {
         public string TotalTime { get; set; }
         public string Countdown { get; set; }
+        public string TotalBreakTime { get; set; }
+        public string BreakCountdown { get; set; }
         public string StartButtonName { get; set; }
+        public bool BreakClickable { get; set; }
 
         public ICommand StartOrPause { get; set;}
+        public ICommand Break { get; set; }
         public ICommand Stop { get; set;}
         public ICommand OpenSettings { get; set; }
 
@@ -28,11 +32,13 @@ namespace WorkTimer.ViewModels
             StartButtonName = "Start";
             _timer = new Models.Timer(UpdateTimers);
             StartOrPause = new Commands.GenericCommand(StartOrPauseTimer);
+            Break = new Commands.GenericCommand(BreakTimer);
             Stop = new Commands.GenericCommand(StopTimer);
             OpenSettings = new Commands.GenericCommand(OpenSettingsWindow);
+            BreakClickable = true;
         }
 
-        private void UpdateTimers(TimeSpan total, TimeSpan countdown)
+        private void UpdateTimers(TimeSpan total, TimeSpan countdown, TimeSpan breakTotal, TimeSpan breakCountdown)
         {
             string sign = "";
             if (countdown.TotalSeconds < 0)
@@ -42,8 +48,12 @@ namespace WorkTimer.ViewModels
             }
             Countdown = sign + String.Format("{0:D2}:{1:D2}:{2:D2}", countdown.Hours, countdown.Minutes, countdown.Seconds);
             TotalTime = String.Format("{0:D2}:{1:D2}:{2:D2}", total.Hours, total.Minutes, total.Seconds);
+            BreakCountdown = String.Format("{0:D2}:{1:D2}:{2:D2}", breakCountdown.Hours, breakCountdown.Minutes, breakCountdown.Seconds);
+            TotalBreakTime = String.Format("{0:D2}:{1:D2}:{2:D2}", breakTotal.Hours, breakTotal.Minutes, breakTotal.Seconds);
             OnPropertyChanged("Countdown");
             OnPropertyChanged("TotalTime");
+            OnPropertyChanged("BreakCountdown");
+            OnPropertyChanged("TotalBreakTime");
         }
 
         private void StartOrPauseTimer()
@@ -63,12 +73,21 @@ namespace WorkTimer.ViewModels
             OnPropertyChanged("StartButtonName");
         }
 
+        private void BreakTimer()
+        {
+            _timer.Break();
+            BreakClickable = false;
+            OnPropertyChanged("BreakClickable");
+        }
+
         private void StopTimer()
         {
             StartButtonName = "Start";
+            BreakClickable = true;
             _paused = true;
             _timer.Stop();
             OnPropertyChanged("StartButtonName");
+            OnPropertyChanged("BreakClickable");
         }
 
         private void OpenSettingsWindow()
@@ -76,7 +95,7 @@ namespace WorkTimer.ViewModels
             ViewModels.SettingsViewModel vm = new ViewModels.SettingsViewModel(_dialogService);
             if (_dialogService.ShowDialog(this, vm) == true)
             {
-                _timer.Set(vm.Hours, vm.Minutes);
+                _timer.Set(vm.Hours, vm.Minutes, vm.BreakHours, vm.BreakMinutes);
                 if (vm.WasReset)
                     _timer.Reset();
             }

@@ -32,6 +32,7 @@ namespace WorkTimer.Views
             _defaultForeground = new SolidColorBrush(Colors.Black);
             _focusedForeground = new SolidColorBrush(Colors.White);
             HoursInput.CaretBrush = MinutesInput.CaretBrush = _focusedBackground;
+            BreakHoursInput.CaretBrush = BreakMinutesInput.CaretBrush = _focusedBackground;
         }
 
         private void HoursInput_PreviewTextInput(object sender, TextCompositionEventArgs e)
@@ -100,5 +101,70 @@ namespace WorkTimer.Views
             MinutesInput.CaretIndex = 2;
         }
 
+        private void BreakHoursInput_SelectionChanged(object sender, RoutedEventArgs e)
+        {
+            e.Handled = true;
+        }
+
+        private void BreakHoursInput_LostFocus(object sender, RoutedEventArgs e)
+        {
+            BreakHoursInput.Background = _defaultBackground;
+            BreakHoursInput.Foreground = _defaultForeground;
+        }
+
+        private void BreakHoursInput_GotFocus(object sender, RoutedEventArgs e)
+        {
+            BreakHoursInput.CaretIndex = 2;
+            BreakHoursInput.Background = _focusedBackground;
+            BreakHoursInput.Foreground = _focusedForeground;
+        }
+
+        private void BreakHoursInput_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            int num;
+            try
+            {
+                num = Convert.ToInt32(e.Text);
+            }
+            catch
+            {
+                e.Handled = true;
+            }
+            BreakHoursInput.Text = BreakHoursInput.Text[1].ToString() + e.Text;
+            BreakHoursInput.CaretIndex = 2;
+        }
+
+        private void BreakMinutesInput_LostFocus(object sender, RoutedEventArgs e)
+        {
+            BreakMinutesInput.Background = _defaultBackground;
+            BreakMinutesInput.Foreground = _defaultForeground;
+        }
+
+        private void BreakMinutesInput_GotFocus(object sender, RoutedEventArgs e)
+        {
+            BreakMinutesInput.CaretIndex = 2;
+            BreakMinutesInput.Background = _focusedBackground;
+            BreakMinutesInput.Foreground = _focusedForeground;
+        }
+
+        private void BreakMinutesInput_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            int num;
+            try
+            {
+                num = Convert.ToInt32(e.Text);
+            }
+            catch
+            {
+                e.Handled = true;
+                return;
+            }
+            string last = BreakMinutesInput.Text[1].ToString();
+            if (Convert.ToInt32(last) < 6)
+                BreakMinutesInput.Text = last + e.Text;
+            else
+                BreakMinutesInput.Text = "0" + e.Text;
+            BreakMinutesInput.CaretIndex = 2;
+        }
     }
 }

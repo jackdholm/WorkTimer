@@ -10,14 +10,20 @@ namespace WorkTimer.Models
 {
     class Timer
     {
-        public delegate void UpdateHandler(TimeSpan total, TimeSpan countdown);
+        public delegate void UpdateHandler(TimeSpan total, TimeSpan countdown, TimeSpan breakTotal, TimeSpan breakCountdown);
 
         private DispatcherTimer _dispatcherTimer;
         private UpdateHandler _handler;
+
         private TimeSpan _totalTime;
+        private TimeSpan _totalBreakTime;
         private TimeSpan _countdown;
+        private TimeSpan _breakCountdown;
+        private TimeSpan _originalBreak;
         private TimeSpan _originalCountdown;
+
         private bool _notificationShown = false;
+        private bool _onBreak = false;
 
         public Timer(UpdateHandler handler)
         {
@@ -26,20 +32,33 @@ namespace WorkTimer.Models
             _dispatcherTimer.Interval = new TimeSpan(0, 0, 1);
             _handler = handler;
             _totalTime = new TimeSpan(0, 0, 0);
-            Set(0, 30);
+            _totalBreakTime = new TimeSpan(0, 0, 0);
+            Set(0, 30, 0, 7);
         }
         public void Set(int hours, int minutes)
         {
             _originalCountdown = new TimeSpan(hours, minutes, 0);
             _countdown = _originalCountdown;
-            _handler(_totalTime, _countdown);
+            _handler(_totalTime, _countdown, _totalBreakTime, _breakCountdown);
+        }
+        public void Set(int mainHours, int mainMinutes, int breakHours, int breakMinutes)
+        {
+            _originalCountdown = new TimeSpan(mainHours, mainMinutes, 0);
+            _originalBreak = new TimeSpan(breakHours, breakMinutes, 0);
+            _countdown = _originalCountdown;
+            _breakCountdown = _originalBreak;
+            _handler(_totalTime, _countdown, _totalBreakTime, _breakCountdown);
         }
         public void Reset()
         {
             _originalCountdown = new TimeSpan(0, 30, 0);
+            _originalBreak = new TimeSpan(0, 7, 0);
             _countdown = _originalCountdown;
+            _breakCountdown = _originalBreak;
             _totalTime = new TimeSpan(0, 0, 0);
-            _handler(_totalTime, _countdown);
+            _totalBreakTime = new TimeSpan(0, 0, 0);
+
+            _handler(_totalTime, _countdown, _totalBreakTime, _breakCountdown);
         }
         public void Start()
         {
@@ -51,18 +70,34 @@ namespace WorkTimer.Models
             _dispatcherTimer.Stop();
         }
 
+        public void Break()
+        {
+            _onBreak = true;
+        }
+
         public void Stop()
         {
             _dispatcherTimer.Stop();
             _countdown = _originalCountdown;
-            _handler(_totalTime, _countdown);
+            _breakCountdown = _originalBreak;
+            _handler(_totalTime, _countdown, _totalBreakTime, _breakCountdown);
             _notificationShown = false;
+            _onBreak = false;
         }
 
         private void TimerTick(object sender, EventArgs e)
         {
-            _totalTime += new TimeSpan(0, 0, 1);
-            _countdown -= new TimeSpan(0, 0, 1);
+            TimeSpan second = new TimeSpan(0, 0, 1);
+            if (_onBreak)
+            {
+                _totalBreakTime += second;
+                _breakCountdown -= second;
+            }
+            else
+            {
+                _totalTime += second;
+                _countdown -= second;
+            }
 
             if (!_notificationShown && _countdown.TotalSeconds < 0)
             {
@@ -71,7 +106,7 @@ namespace WorkTimer.Models
                     .Show();
                 _notificationShown = true;
             }
-            _handler(_totalTime, _countdown);
+            _handler(_totalTime, _countdown, _totalBreakTime, _breakCountdown);
         }
     }
 }

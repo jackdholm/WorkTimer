@@ -6,7 +6,7 @@
         xmlns:md="https://github.com/fantasticfiasco/mvvm-dialogs"
         md:DialogServiceViews.IsRegistered="True"
         mc:Ignorable="d"
-        Title="Work Timer" Height="320" Width="588">
+        Title="Work Timer" Height="320" Width="650">
     <Window.Resources>
         <Style x:Key="FocusVisual">
             <Setter Property="Control.Template">
@@ -19,9 +19,19 @@
         </Style>
     </Window.Resources>
     <Grid>
-        <Label x:Name="label_Copy" Content="{Binding TotalTime}" Padding="0,0,0,0" Margin="0,-7,145,202.2" FontSize="72" Height="96" VerticalAlignment="Center" HorizontalContentAlignment="Right"/>
-        <Label x:Name="label" Content="{Binding Countdown}" Padding="0,0,0,0" Margin="0,89,145,106.2" FontSize="72" Height="96" VerticalAlignment="Center" HorizontalContentAlignment="Right"/>
-        <Button Background="#FFF9F9F9" Command="{Binding StartOrPause}" x:Name="button_start" FontSize="16" Content="{Binding Path=StartButtonName, FallbackValue='Start'}" HorizontalAlignment="Left" Margin="301.615,209.835,0,0" VerticalAlignment="Top" Width="75"/>
+        <StackPanel Orientation="Vertical" Margin="115,0,0.2,85.4">
+            <StackPanel Orientation="Horizontal">
+                <Label x:Name="total_time" Content="{Binding TotalTime}" Padding="0,0,0,0" Margin="0,0,0,0" FontSize="72" Height="96" VerticalAlignment="Center" HorizontalContentAlignment="Right" HorizontalAlignment="Right" Width="304"/>
+                <Label x:Name="total_break_time" Content="{Binding TotalBreakTime}" Padding="0,0,0,0" Margin="0,0,0,0" FontSize="45" Height="77" VerticalAlignment="Center" VerticalContentAlignment="Center" HorizontalContentAlignment="Right" HorizontalAlignment="Right" Width="212"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Label x:Name="label" Content="{Binding Countdown}" Padding="0,0,0,0" Margin="0,0,0,0" FontSize="72" Height="96" VerticalAlignment="Center" HorizontalContentAlignment="Right" HorizontalAlignment="Right" Width="304"/>
+                <Label x:Name="labelfff" Content="{Binding BreakCountdown}" Padding="0,0,0,0" Margin="0,0,0,0" FontSize="45" Height="77" VerticalAlignment="Center" VerticalContentAlignment="Center" HorizontalContentAlignment="Right" HorizontalAlignment="Right" Width="212"/>
+            </StackPanel>
+        </StackPanel>
+
+        <Button Background="#FFF9F9F9" Command="{Binding StartOrPause}" x:Name="button_start" FontSize="16" Content="{Binding Path=StartButtonName, FallbackValue='Start'}" HorizontalAlignment="Left" Margin="382,210,0,0" VerticalAlignment="Top" Width="75"/>
+        <Button Background="#FFF9F9F9" Command="{Binding Break}" IsEnabled="{Binding BreakClickable}" x:Name="button_break" FontSize="16" Content="Break" HorizontalAlignment="Left" Margin="302,210,0,0" VerticalAlignment="Top" Width="75"/>
         <Button Background="#FFF9F9F9" Command="{Binding Stop}" x:Name="button_stop" FontSize="16" Content="Stop" HorizontalAlignment="Left" Margin="221.615,209.835,0,0" VerticalAlignment="Top" Width="75" />
         <Button Command="{Binding OpenSettings}" x:Name="button" Background="White" BorderThickness="0" FontFamily="Segoe MDL2 Assets" Content="&#xE713;" HorizontalAlignment="Left" VerticalAlignment="Top" Width="43" Margin="10,10,0,0" Height="43" FontSize="40"/>
 
