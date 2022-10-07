@@ -30,7 +30,7 @@ namespace WorkTimer.ViewModels
         {
             _dialogService = new DialogService(null, new Utilities.Locator(), null);
             StartButtonName = "Start";
-            _timer = new Models.Timer(UpdateTimers);
+            _timer = new Models.Timer(UpdateTimers, StartOrPauseTimer);
             StartOrPause = new Commands.GenericCommand(StartOrPauseTimer);
             Break = new Commands.GenericCommand(BreakTimer);
             Stop = new Commands.GenericCommand(StopTimer);
@@ -96,6 +96,7 @@ namespace WorkTimer.ViewModels
             if (_dialogService.ShowDialog(this, vm) == true)
             {
                 _timer.Set(vm.Hours, vm.Minutes, vm.BreakHours, vm.BreakMinutes);
+                _timer.PauseLimit = vm.PauseLimit;
                 if (vm.WasReset)
                     _timer.Reset();
             }

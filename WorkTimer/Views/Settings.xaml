@@ -7,16 +7,16 @@
         xmlns:local="clr-namespace:WorkTimer.Views"
         md:DialogServiceViews.IsRegistered="True"
         mc:Ignorable="d"
-        Title="Work Timer" Height="320" Width="450">
+        Title="Work Timer" Height="340" Width="450">
 
     <Grid>
-        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,80,50,125">
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="35,42,35.2,85.4">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,50,70">
                 <TextBox Text="{Binding HoursText}" SelectionChanged="HoursInput_SelectionChanged" LostFocus="HoursInput_LostFocus" GotMouseCapture="HoursInput_GotFocus" GotKeyboardFocus="HoursInput_GotFocus" GotFocus="HoursInput_GotFocus" x:Name="HoursInput" PreviewTextInput="HoursInput_PreviewTextInput" Width="70" TextWrapping="Wrap" HorizontalContentAlignment="Center" BorderThickness="0" Margin="0,0,0,8" FontSize="52" MaxLength="2" Height="78" VerticalAlignment="Bottom"/>
                 <Label Content=":" FontSize="52" VerticalContentAlignment="Center" Height="105" VerticalAlignment="Bottom" RenderTransformOrigin="0,0" Margin="0,-20,0,0.6" />
                 <TextBox Text="{Binding MinutesText}" x:Name="MinutesInput" LostFocus="MinutesInput_LostFocus" GotFocus="MinutesInput_GotFocus" PreviewTextInput="MinutesInput_PreviewTextInput" Width="70" TextWrapping="Wrap" HorizontalContentAlignment="Center" BorderThickness="0" Margin="0,0,0,8" FontSize="52" MaxLength="2" Height="78" VerticalAlignment="Bottom"/>
             </StackPanel>
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,80,0,125" >
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,0,70" >
                 <TextBox Text="{Binding BreakHoursText}" SelectionChanged="BreakHoursInput_SelectionChanged"  LostFocus="BreakHoursInput_LostFocus" GotFocus="BreakHoursInput_GotFocus" x:Name="BreakHoursInput" PreviewTextInput="BreakHoursInput_PreviewTextInput" Width="70" TextWrapping="Wrap" HorizontalContentAlignment="Center" BorderThickness="0" Margin="0,0,0,8" FontSize="52" MaxLength="2" Height="78" VerticalAlignment="Bottom"/>
                 <Label Content=":" FontSize="52" VerticalContentAlignment="Center" Height="105" VerticalAlignment="Bottom" RenderTransformOrigin="0,0" Margin="0,-20,0,0.6" />
                 <TextBox Text="{Binding BreakMinutesText}" x:Name="BreakMinutesInput" LostFocus="BreakMinutesInput_LostFocus" GotFocus="BreakMinutesInput_GotFocus" PreviewTextInput="BreakMinutesInput_PreviewTextInput" Width="70" TextWrapping="Wrap" HorizontalContentAlignment="Center" BorderThickness="0" Margin="0,0,0,8" FontSize="52" MaxLength="2" Height="78" VerticalAlignment="Bottom"/>
@@ -24,9 +24,20 @@
         </StackPanel>
 
         <Button Command="{Binding Start}" x:Name="StartButton" Width="80" Height="25" Content="Start" Margin="0,180,0,0" VerticalAlignment="Top"/>
-        <Button Command="{Binding Reset}" x:Name="reset_button" Width="120" Content="Reset" Margin="10,10,313.2,0" Height="27" VerticalAlignment="Top" />
+        <Button Command="{Binding Reset}" x:Name="reset_button" Width="120" Content="Reset" Margin="10,10,300,0" Height="27" VerticalAlignment="Top" />
         <Label x:Name="label" Content="Main" HorizontalAlignment="Left" Margin="95,42,0,0" VerticalAlignment="Top" FontSize="14"/>
         <Label x:Name="label_Copy" Content="Break" HorizontalAlignment="Left" Margin="307,42,0,0" VerticalAlignment="Top" FontSize="14"/>
+        <StackPanel Height="90" Margin="70,210,181.2,0" VerticalAlignment="Top">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Height="25" Margin="0,0,0.2,0" >
+                <Label x:Name="label1" Content="Pause Limit (Minutes): "/>
+                <TextBox x:Name="PauseLimitInput" Text="{Binding PauseLimitText}" HorizontalContentAlignment="Center" PreviewTextInput="PauseLimitInput_PreviewTextInput"  Margin="1,0,0,0" MaxLength="1" Width="23" RenderTransformOrigin="1.686,0.49" />
+            </StackPanel>
+            <!--<StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Height="25" Margin="0,0,0.2,0">
+                <Label x:Name="ffff" Content="Break Time Adjustment Ratio:"/>
+                <TextBox MaxLength="3" Margin="1,0,0,0" Width="23" RenderTransformOrigin="1.686,0.49" />
+            </StackPanel>-->
+            
+        </StackPanel>
 
     </Grid>
 </Window>

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -23,6 +24,7 @@ namespace WorkTimer.Views
         private SolidColorBrush _focusedBackground;
         private SolidColorBrush _defaultForeground;
         private SolidColorBrush _focusedForeground;
+        private static readonly Regex _regex = new Regex("[0-9]");
 
         public Settings()
         {
@@ -165,6 +167,16 @@ namespace WorkTimer.Views
             else
                 BreakMinutesInput.Text = "0" + e.Text;
             BreakMinutesInput.CaretIndex = 2;
+        }
+
+        private void PauseLimitInput_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            if (!_regex.IsMatch(e.Text))
+            {
+                e.Handled = true;
+                return;
+            }
+            PauseLimitInput.Text = e.Text;
         }
     }
 }

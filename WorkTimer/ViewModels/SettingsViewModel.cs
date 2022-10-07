@@ -46,12 +46,15 @@ namespace WorkTimer.ViewModels
                 BreakMinutesText = String.Format("{0:D2}", _breakMinutes);
             }
         }
+        
+        public int PauseLimit { get; set; }
 
         public bool? DialogResult { get { return _changed; } }
         public string HoursText { get; set; }
         public string MinutesText { get; set; }
         public string BreakHoursText { get; set; }
         public string BreakMinutesText { get; set; }
+        public string PauseLimitText { get; set; }
         public ICommand Start { get; set; }
         public ICommand Reset { get; set; }
         public bool WasReset { get; set; }
@@ -82,6 +85,7 @@ namespace WorkTimer.ViewModels
             Minutes = Convert.ToInt32(MinutesText);
             BreakHours = Convert.ToInt32(BreakHoursText);
             BreakMinutes = Convert.ToInt32(BreakMinutesText);
+            PauseLimit = Convert.ToInt32(PauseLimitText);
             _changed = true;
             _dialogService.Close(this);
         }
