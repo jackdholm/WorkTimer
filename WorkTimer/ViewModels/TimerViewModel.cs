@@ -97,6 +97,7 @@ namespace WorkTimer.ViewModels
             {
                 _timer.Set(vm.Hours, vm.Minutes, vm.BreakHours, vm.BreakMinutes);
                 _timer.PauseLimit = vm.PauseLimit;
+                _timer.BreakRatio = vm.BreakRatio;
                 if (vm.WasReset)
                     _timer.Reset();
             }

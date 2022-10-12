@@ -27,16 +27,16 @@
         <Button Command="{Binding Reset}" x:Name="reset_button" Width="120" Content="Reset" Margin="10,10,300,0" Height="27" VerticalAlignment="Top" />
         <Label x:Name="label" Content="Main" HorizontalAlignment="Left" Margin="95,42,0,0" VerticalAlignment="Top" FontSize="14"/>
         <Label x:Name="label_Copy" Content="Break" HorizontalAlignment="Left" Margin="307,42,0,0" VerticalAlignment="Top" FontSize="14"/>
-        <StackPanel Height="90" Margin="70,210,181.2,0" VerticalAlignment="Top">
+        <StackPanel Height="90" Margin="55,210,181.2,0" VerticalAlignment="Top">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Height="25" Margin="0,0,0.2,0" >
                 <Label x:Name="label1" Content="Pause Limit (Minutes): "/>
-                <TextBox x:Name="PauseLimitInput" Text="{Binding PauseLimitText}" HorizontalContentAlignment="Center" PreviewTextInput="PauseLimitInput_PreviewTextInput"  Margin="1,0,0,0" MaxLength="1" Width="23" RenderTransformOrigin="1.686,0.49" />
+                <TextBox x:Name="PauseLimitInput" Text="{Binding PauseLimitText}" HorizontalContentAlignment="Center" PreviewTextInput="PauseLimitInput_PreviewTextInput"  Margin="1,0,0,0" MaxLength="1" Width="30" RenderTransformOrigin="1.686,0.49" />
             </StackPanel>
-            <!--<StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Height="25" Margin="0,0,0.2,0">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Height="25" Margin="0,0,0.2,0">
                 <Label x:Name="ffff" Content="Break Time Adjustment Ratio:"/>
-                <TextBox MaxLength="3" Margin="1,0,0,0" Width="23" RenderTransformOrigin="1.686,0.49" />
-            </StackPanel>-->
-            
+                <TextBox x:Name="BreakRatioInput" Text="{Binding BreakRatioText}" HorizontalContentAlignment="Center" MaxLength="5" Margin="1,0,0,0" PreviewTextInput="BreakRatioInput_PreviewTextInput" Width="30" RenderTransformOrigin="1.686,0.49" />
+            </StackPanel>
+
         </StackPanel>
 
     </Grid>

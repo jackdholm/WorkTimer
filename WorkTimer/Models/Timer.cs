@@ -14,6 +14,7 @@ namespace WorkTimer.Models
         public delegate void AutoPlayResumeHandler();
 
         public int PauseLimit { get; set; }
+        public double BreakRatio { get; set; }
 
         private DispatcherTimer _dispatcherTimer;
         private UpdateHandler _handler;
@@ -124,12 +125,17 @@ namespace WorkTimer.Models
                 _countdown -= second;
             }
 
-            if (!_notificationShown && _countdown.TotalSeconds < 0)
+            if (_countdown.TotalSeconds < 0)
             {
-                new ToastContentBuilder()
-                    .AddText("Timer Done")
-                    .Show();
-                _notificationShown = true;
+                if (!_notificationShown)
+                {
+                    new ToastContentBuilder()
+                        .AddText("Timer Done")
+                        .Show();
+                    _notificationShown = true;
+                }
+                if (!_onBreak)
+                    _breakCountdown += new TimeSpan(0, 0, 0, 0, (int)(BreakRatio * 1000));
             }
             _handler(_totalTime, _countdown, _totalBreakTime, _breakCountdown);
         }

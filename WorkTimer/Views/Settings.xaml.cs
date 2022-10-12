@@ -25,6 +25,7 @@ namespace WorkTimer.Views
         private SolidColorBrush _defaultForeground;
         private SolidColorBrush _focusedForeground;
         private static readonly Regex _regex = new Regex("[0-9]");
+        private static readonly Regex _regexDouble = new Regex("[0-9.]");
 
         public Settings()
         {
@@ -177,6 +178,54 @@ namespace WorkTimer.Views
                 return;
             }
             PauseLimitInput.Text = e.Text;
+        }
+
+        private void BreakRatioInput_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            double ratio;
+            try
+            {
+                ratio = Convert.ToDouble(BreakRatioInput.Text);
+            }
+            catch
+            {
+                ratio = 0;
+            }
+            if (!_regexDouble.IsMatch(BreakRatioInput.Text + e.Text) || (ratio >= 1 && e.Text != "0") || (e.Text == "." && BreakRatioInput.Text.Length > 1))
+            {
+                e.Handled = true;
+                return;
+            }
+            //if (!_regexDouble.IsMatch(e.Text) || (ratio >= 1 && e.Text != "0") || (e.Text == "." && BreakRatioInput.Text.Length > 1))
+            //{
+            //    e.Handled = true;
+            //    return;
+            //}
+            //else if (e.Text == "0")
+            //{
+            //    e.Handled = true;
+            //    BreakRatioInput.Text = "0.";
+            //    BreakRatioInput.CaretIndex = 2;
+            //    return;
+            //}
+            if (BreakRatioInput.Text.Length == 0)
+            {
+                if (e.Text == ".")
+                {
+                    BreakRatioInput.Text = "0.";
+                    e.Handled = true;
+                }
+                else if (e.Text != "0" && e.Text != "1")
+                {
+                    e.Handled = true;
+                }
+            }
+            if (BreakRatioInput.Text.Length == 1 && e.Text != ".")
+            {
+                BreakRatioInput.Text = ratio == 0 ? "1" : "0";
+                e.Handled = true;
+            }
+            BreakRatioInput.CaretIndex = BreakRatioInput.Text.Length;
         }
     }
 }
